@@ -148,17 +148,16 @@
     .scroll-indicator {
       position: absolute;
       bottom: 2.5rem;
-      /* Perfect Centering Fix */
       left: 50%;
       transform: translateX(-50%);
-      width: 100px; /* Defined width to ensure centering of children */
+      width: 100px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
       opacity: 0;
-      animation: fadeUp 1.5s ease 3s forwards;
+      animation: fadeUpCentered 1.5s ease 3s forwards;
     }
 
     .scroll-indicator span {
@@ -658,6 +657,17 @@
       100% {
         opacity: 1;
         transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeUpCentered {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, 0);
       }
     }
 
