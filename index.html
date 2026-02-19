@@ -1,174 +1,965 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retention Architect | Portfolio</title>
-    <style>
-        /* CORE AESTHETICS */
-        :root {
-            --bg: #050505;
-            --text: #e0e0e0;
-            --accent: #ff2a2a; /* Blood Red */
-            --glass: rgba(255, 255, 255, 0.05);
-        }
-        
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Courier New', Courier, monospace;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retention Architect</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500&family=Sora:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        /* BACKGROUND */
-        .fog {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, #1a0000 0%, #000000 80%);
-            z-index: -1;
-            opacity: 0.6;
-        }
+    :root {
+      --bg: #0e0e0f;
+      --bg-light: #141415;
+      --text: #f2f2f2;
+      --text-dim: #999;
+      --accent: #8b0000;
+      --accent-glow: rgba(139, 0, 0, 0.3);
+      --amber: #b88a44;
+      --amber-glow: rgba(184, 138, 68, 0.15);
+    }
 
-        /* HERO SECTION - COMPACT */
-        .hero {
-            padding: 80px 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
+    html {
+      scroll-behavior: smooth;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) var(--bg);
+    }
 
-        h1 {
-            font-size: 3rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 10px;
-            text-shadow: 0 0 20px rgba(255, 42, 42, 0.5);
-            margin: 0;
-        }
+    body {
+      font-family: 'Inter', 'Sora', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-        p.subtitle {
-            font-size: 1.2rem;
-            color: #888;
-            margin-top: 20px;
-            margin-bottom: 40px;
-        }
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
 
-        /* PROJECT GRID */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding-bottom: 50px;
-        }
+    /* ── Canvas ── */
+    #particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
 
-        .card {
-            background: rgba(20, 20, 20, 0.8);
-            border: 1px solid #333;
-            padding: 25px;
-            transition: all 0.3s ease;
-        }
+    /* ── Noise Overlay ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 128px 128px;
+    }
 
-        .card:hover {
-            border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.2);
-        }
+    /* ── Sections ── */
+    section {
+      position: relative;
+      z-index: 2;
+    }
 
-        .card h3 { color: var(--accent); margin-top: 0; }
-        
-        .tag { 
-            background: #222; 
-            padding: 4px 8px; 
-            font-size: 0.7rem; 
-            border-radius: 4px;
-            margin-right: 5px;
-            color: #aaa;
-            border: 1px solid #444;
-        }
+    /* ═══════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
 
-        /* BUTTONS */
-        .btn {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 8px 20px;
-            background: transparent;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.9rem;
-            transition: 0.3s;
-        }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 45%, rgba(139,0,0,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(14,14,15,1) 0%, transparent 60%);
+      z-index: -1;
+    }
 
-        .btn:hover {
-            background: var(--accent);
-            color: #000;
-        }
-    </style>
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.8rem, 7vw, 6.5rem);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.1;
+      opacity: 0;
+      animation: titleReveal 2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+      background: linear-gradient(180deg, var(--text) 0%, rgba(242,242,242,0.7) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-line {
+      width: 60px;
+      height: 1px;
+      background: var(--accent);
+      margin: 1.8rem auto;
+      opacity: 0;
+      animation: lineExpand 1.5s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards;
+    }
+
+    .hero-tagline {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(0.95rem, 2vw, 1.25rem);
+      font-weight: 300;
+      font-style: italic;
+      letter-spacing: 0.15em;
+      color: var(--text-dim);
+      opacity: 0;
+      animation: fadeUp 1.8s cubic-bezier(0.16, 1, 0.3, 1) 2s forwards;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeUp 1.5s ease 3s forwards;
+    }
+
+    .scroll-indicator span {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .scroll-arrow {
+      width: 1px;
+      height: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scroll-arrow::after {
+      content: '';
+      position: absolute;
+      top: -40px;
+      left: 0;
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, transparent, var(--accent));
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ═══════════════════════════════════════
+       ABOUT
+    ═══════════════════════════════════════ */
+    .about {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 8rem 2rem;
+      text-align: center;
+    }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2.5rem;
+      display: block;
+    }
+
+    .about-text {
+      font-size: clamp(1rem, 1.8vw, 1.15rem);
+      font-weight: 300;
+      line-height: 2;
+      color: rgba(242, 242, 242, 0.82);
+    }
+
+    .about-text strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .thin-divider {
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--text-dim), transparent);
+      margin: 3rem auto;
+      opacity: 0.4;
+    }
+
+    .about-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      margin-top: 3rem;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--amber);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-top: 0.3rem;
+    }
+
+    /* ═══════════════════════════════════════
+       PORTFOLIO
+    ═══════════════════════════════════════ */
+    .portfolio {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 6rem 2rem 8rem;
+    }
+
+    .portfolio .section-label {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      position: relative;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      padding: 1px;
+      background: linear-gradient(135deg, transparent 30%, rgba(139,0,0,0) 50%, transparent 70%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      transition: background 0.6s ease;
+      pointer-events: none;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), var(--accent-glow) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-6px) scale(1.01);
+      border-color: rgba(139,0,0,0.2);
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.5),
+        0 0 40px var(--accent-glow);
+    }
+
+    .card:hover::before {
+      background: linear-gradient(135deg, rgba(139,0,0,0.3) 0%, rgba(184,138,68,0.15) 50%, rgba(139,0,0,0.3) 100%);
+    }
+
+    .card:hover::after {
+      opacity: 1;
+    }
+
+    .card-number {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .card-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .card:hover .card-title {
+      color: var(--amber);
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--text-dim);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.8rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      color: var(--text-dim);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .view-btn {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 4px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      transition: color 0.3s ease;
+    }
+
+    .view-btn::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .view-btn:hover {
+      color: var(--amber);
+    }
+
+    .view-btn:hover::after {
+      width: 100%;
+    }
+
+    /* ═══════════════════════════════════════
+       HOOK ENGINEERING
+    ═══════════════════════════════════════ */
+    .hooks {
+      padding: 6rem 2rem 8rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .hooks::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 50% 40% at 50% 50%, rgba(139,0,0,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hooks .section-label {
+      margin-bottom: 4rem;
+    }
+
+    .hook-sequence {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hook-word {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--text);
+      padding: 0.6rem 0.3rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hook-word.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hook-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin: 0 1.2rem;
+      opacity: 0;
+      transform: scale(0);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      flex-shrink: 0;
+    }
+
+    .hook-dot.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .hook-subtext {
+      margin-top: 3rem;
+      font-size: 0.85rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+      opacity: 0;
+      transition: opacity 1s ease 2s;
+    }
+
+    .hook-subtext.visible {
+      opacity: 1;
+    }
+
+    /* ═══════════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════════ */
+    .contact {
+      max-width: 550px;
+      margin: 0 auto;
+      padding: 6rem 2rem 10rem;
+      text-align: center;
+    }
+
+    .contact .section-label {
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-text {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--text-dim);
+      line-height: 1.8;
+      margin-bottom: 3rem;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .input-group {
+      position: relative;
+    }
+
+    .input-group input,
+    .input-group textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 1rem 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.4s ease;
+      resize: none;
+    }
+
+    .input-group textarea {
+      min-height: 100px;
+    }
+
+    .input-group input::placeholder,
+    .input-group textarea::placeholder {
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.05em;
+    }
+
+    .input-group .line {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .input-group input:focus ~ .line,
+    .input-group textarea:focus ~ .line {
+      width: 100%;
+      left: 0;
+    }
+
+    .submit-btn {
+      align-self: center;
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--text);
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 1rem 3rem;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.5s ease;
+    }
+
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: -1;
+    }
+
+    .submit-btn:hover {
+      border-color: var(--accent);
+    }
+
+    .submit-btn:hover::before {
+      transform: scaleX(1);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.15);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ═══════════════════════════════════════
+       ANIMATIONS
+    ═══════════════════════════════════════ */
+    @keyframes titleReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
+        letter-spacing: 0.2em;
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        letter-spacing: 0.08em;
+      }
+    }
+
+    @keyframes lineExpand {
+      0% {
+        opacity: 0;
+        width: 0;
+      }
+      100% {
+        opacity: 1;
+        width: 60px;
+      }
+    }
+
+    @keyframes fadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scrollPulse {
+      0% { top: -40px; }
+      100% { top: 40px; }
+    }
+
+    /* ── Scroll Reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-stats {
+        gap: 2rem;
+      }
+
+      .hook-dot {
+        margin: 0 0.6rem;
+      }
+
+      .hook-word {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 2rem 1.5rem;
+      }
+
+      .card {
+        padding: 2rem 1.5rem;
+      }
+
+      .hook-sequence {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .hook-dot {
+        display: none;
+      }
+    }
+</style>
 </head>
 <body>
 
-    <div class="fog"></div>
+  <canvas id="particles"></canvas>
 
-    <div class="hero">
-        <h1>Retention Architect</h1>
-        <p class="subtitle">I don't write scripts. I engineer obsession.</p>
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <h1 class="hero-title">Retention<br>Architect</h1>
+    <div class="hero-line"></div>
+    <p class="hero-tagline">"I don't write scripts — I engineer obsession."</p>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
     </div>
+  </section>
 
-    <div id="projects" class="grid">
-        <!-- Project 1 -->
-        <div class="card">
-            <h3>PROJECT: DYATLOV</h3>
-            <p><strong>Topic:</strong> The Vanishing</p>
-            <br>
-            <span class="tag">Mystery</span>
-            <span class="tag">High AVD</span>
-            <br>
-            <a href="#" class="btn">VIEW SCRIPT</a>
-        </div>
-
-        <!-- Project 2 -->
-        <div class="card">
-            <h3>PROJECT: SILENT SEA</h3>
-            <p><strong>Topic:</strong> Mary Celeste</p>
-            <br>
-            <span class="tag">Thriller</span>
-            <span class="tag">Pacing</span>
-            <br>
-            <a href="#" class="btn">VIEW SCRIPT</a>
-        </div>
-
-        <!-- Project 3 -->
-        <div class="card">
-            <h3>PROJECT: DEAD NET</h3>
-            <p><strong>Topic:</strong> AI Theory</p>
-            <br>
-            <span class="tag">Tech</span>
-            <span class="tag">Viral</span>
-            <br>
-            <a href="#" class="btn">VIEW SCRIPT</a>
-        </div>
-        
-        <!-- Project 4 -->
-        <div class="card">
-            <h3>PROJECT: MAURA</h3>
-            <p><strong>Topic:</strong> Disappearance</p>
-            <br>
-            <span class="tag">Crime</span>
-            <span class="tag">Deep Dive</span>
-            <br>
-            <a href="#" class="btn">VIEW SCRIPT</a>
-        </div>
+  <!-- ═══ ABOUT ═══ -->
+  <section class="about">
+    <div class="reveal">
+      <span class="section-label">About</span>
     </div>
+    <div class="reveal" style="transition-delay: 0.15s;">
+      <p class="about-text">
+        Documentary-style scriptwriter specializing in <strong>high-retention dark history</strong>,
+        psychological mysteries, and investigative storytelling. Structured for
+        <strong>60–70% audience retention</strong>, cinematic pacing, and production efficiency.
+      </p>
+    </div>
+    <div class="thin-divider reveal" style="transition-delay: 0.3s;"></div>
+    <div class="about-stats reveal" style="transition-delay: 0.4s;">
+      <div class="stat">
+        <span class="stat-number">60–70%</span>
+        <span class="stat-label">Avg. Retention</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">Cinematic</span>
+        <span class="stat-label">Pacing Structure</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number">Dark</span>
+        <span class="stat-label">Narrative Tone</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PORTFOLIO ═══ -->
+  <section class="portfolio">
+    <span class="section-label reveal">Selected Work</span>
+    <div class="portfolio-grid">
+
+      <div class="card reveal" style="transition-delay: 0.1s;">
+        <span class="card-number">Case No. 001</span>
+        <h3 class="card-title">The D.B. Cooper Incident</h3>
+        <p class="card-desc">A man boards a plane, hijacks it with calm precision, collects $200,000 in ransom, and parachutes into the night — never to be seen again. The only unsolved hijacking in American aviation history.</p>
+        <div class="card-tags">
+          <span class="tag">Cold Case</span>
+          <span class="tag">Aviation</span>
+          <span class="tag">1971</span>
+        </div>
+        <button class="view-btn">View Script</button>
+      </div>
+
+      <div class="card reveal" style="transition-delay: 0.25s;">
+        <span class="card-number">Case No. 002</span>
+        <h3 class="card-title">The Vanishing of Dyatlov Pass</h3>
+        <p class="card-desc">Nine experienced hikers tear through their tent from the inside and flee barefoot into -30°C darkness. Some are found with crushed skulls, missing tongues, and radioactive clothing. The Soviet investigation concluded: "unknown compelling force."</p>
+        <div class="card-tags">
+          <span class="tag">Mystery</span>
+          <span class="tag">Soviet Era</span>
+          <span class="tag">1959</span>
+        </div>
+        <button class="view-btn">View Script</button>
+      </div>
+
+      <div class="card reveal" style="transition-delay: 0.4s;">
+        <span class="card-number">Case No. 003</span>
+        <h3 class="card-title">The Disappearance of Maura Murray</h3>
+        <p class="card-desc">A nursing student packs her car, emails professors about a death in the family that never happened, crashes on a rural Vermont highway, and vanishes before police arrive seven minutes later. No body. No trace. No answers.</p>
+        <div class="card-tags">
+          <span class="tag">Missing Person</span>
+          <span class="tag">Psychological</span>
+          <span class="tag">2004</span>
+        </div>
+        <button class="view-btn">View Script</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ HOOK ENGINEERING ═══ -->
+  <section class="hooks">
+    <span class="section-label reveal">Hook Engineering</span>
+    <div class="hook-sequence" id="hookSequence">
+      <span class="hook-word" data-index="0">Cold Open</span>
+      <span class="hook-dot" data-index="0"></span>
+      <span class="hook-word" data-index="1">Escalation</span>
+      <span class="hook-dot" data-index="1"></span>
+      <span class="hook-word" data-index="2">Psychological Pivot</span>
+      <span class="hook-dot" data-index="2"></span>
+      <span class="hook-word" data-index="3">Narrative Tension</span>
+      <span class="hook-dot" data-index="3"></span>
+      <span class="hook-word" data-index="4">Open Loop</span>
+      <span class="hook-dot" data-index="4"></span>
+      <span class="hook-word" data-index="5">Resolution</span>
+    </div>
+    <p class="hook-subtext" id="hookSubtext">Every second is architected. Every word, deliberate.</p>
+  </section>
+
+  <!-- ═══ CONTACT ═══ -->
+  <section class="contact">
+    <div class="reveal">
+      <span class="section-label">Get In Touch</span>
+      <p class="contact-text">
+        Have a story that needs structure?<br>
+        A channel that demands retention?<br>
+        Let's talk.
+      </p>
+    </div>
+    <form class="contact-form reveal" style="transition-delay: 0.2s;" onsubmit="return false;">
+      <div class="input-group">
+        <input type="text" placeholder="Your Name" required>
+        <div class="line"></div>
+      </div>
+      <div class="input-group">
+        <input type="email" placeholder="your@email.com" required>
+        <div class="line"></div>
+      </div>
+      <div class="input-group">
+        <textarea placeholder="Tell me about your project..." required></textarea>
+        <div class="line"></div>
+      </div>
+      <button type="submit" class="submit-btn">Send Message</button>
+    </form>
+  </section>
+
+  <footer class="footer">
+    <p>Retention Architect © 2025</p>
+  </footer>
+
+<script>
+  // ═══════════════════════════════════════
+  // PARTICLES
+  // ═══════════════════════════════════════
+  (function() {
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let w, h;
+    let animId;
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+
+    function createParticles() {
+      particles = [];
+      const count = Math.floor((w * h) / 18000);
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 1.2 + 0.3,
+          dx: (Math.random() - 0.5) * 0.15,
+          dy: (Math.random() - 0.5) * 0.1 - 0.05,
+          o: Math.random() * 0.3 + 0.05,
+          phase: Math.random() * Math.PI * 2,
+          speed: Math.random() * 0.003 + 0.001
+        });
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+      const time = Date.now();
+      for (let p of particles) {
+        p.x += p.dx;
+        p.y += p.dy;
+        const flicker = Math.sin(time * p.speed + p.phase) * 0.15 + 0.85;
+
+        if (p.x < -10) p.x = w + 10;
+        if (p.x > w + 10) p.x = -10;
+        if (p.y < -10) p.y = h + 10;
+        if (p.y > h + 10) p.y = -10;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(242, 242, 242, ${p.o * flicker})`;
+        ctx.fill();
+      }
+      animId = requestAnimationFrame(animate);
+    }
+
+    resize();
+    createParticles();
+    animate();
+
+    window.addEventListener('resize', () => {
+      resize();
+      createParticles();
+    });
+  })();
+
+  // ═══════════════════════════════════════
+  // SCROLL REVEAL
+  // ═══════════════════════════════════════
+  const reveals = document.querySelectorAll('.reveal');
+
+  function checkReveal() {
+    const trigger = window.innerHeight * 0.88;
+    reveals.forEach(el => {
+      const top = el.getBoundingClientRect().top;
+      if (top < trigger) {
+        el.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', checkReveal, { passive: true });
+  window.addEventListener('load', checkReveal);
+
+  // ═══════════════════════════════════════
+  // HOOK SEQUENCE ANIMATION
+  // ═══════════════════════════════════════
+  let hookTriggered = false;
+
+  function checkHooks() {
+    if (hookTriggered) return;
+    const section = document.getElementById('hookSequence');
+    const rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.75) {
+      hookTriggered = true;
+      const words = section.querySelectorAll('.hook-word');
+      const dots = section.querySelectorAll('.hook-dot');
+      let delay = 0;
+
+      words.forEach((word, i) => {
+        setTimeout(() => word.classList.add('visible'), delay);
+        delay += 350;
+        if (dots[i]) {
+          setTimeout(() => dots[i].classList.add('visible'), delay);
+          delay += 200;
+        }
+      });
+
+      setTimeout(() => {
+        document.getElementById('hookSubtext').classList.add('visible');
+      }, delay + 500);
+    }
+  }
+
+  window.addEventListener('scroll', checkHooks, { passive: true });
+
+  // ═══════════════════════════════════════
+  // CARD GLOW FOLLOW
+  // ═══════════════════════════════════════
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--mx', x + '%');
+      card.style.setProperty('--my', y + '%');
+    });
+  });
+</script>
 
 </body>
 </html>
