@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Retention Architect</title>
+<title>Krishna Chaitanya | Retention Architect</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500&family=Sora:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
     *, *::before, *::after {
@@ -113,10 +113,22 @@
       background-clip: text;
     }
 
+    /* Subheading Style - Replaced old hero-line context */
+    .hero-subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-top: 1rem;
+      opacity: 0;
+      animation: fadeUp 1.8s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
+    }
+
     .hero-line {
       width: 60px;
       height: 1px;
-      background: var(--accent);
+      background: var(--text-dim);
       margin: 1.8rem auto;
       opacity: 0;
       animation: lineExpand 1.5s cubic-bezier(0.16, 1, 0.3, 1) 1.5s forwards;
@@ -136,11 +148,14 @@
     .scroll-indicator {
       position: absolute;
       bottom: 2.5rem;
+      /* Perfect Centering Fix */
       left: 50%;
       transform: translateX(-50%);
+      width: 100px; /* Defined width to ensure centering of children */
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       gap: 0.5rem;
       opacity: 0;
       animation: fadeUp 1.5s ease 3s forwards;
@@ -159,6 +174,8 @@
       height: 40px;
       position: relative;
       overflow: hidden;
+      /* Ensure line is centered in flex container */
+      margin: 0 auto; 
     }
 
     .scroll-arrow::after {
@@ -182,14 +199,17 @@
       text-align: center;
     }
 
+    /* UPDATED: Larger Section Label */
     .section-label {
       font-family: 'Cinzel', serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.4em;
+      font-size: clamp(1.2rem, 3vw, 1.5rem); /* Increased size */
+      font-weight: 600;
+      letter-spacing: 0.2em; /* Reduced spacing slightly for readability */
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 2.5rem;
       display: block;
+      text-shadow: 0 0 10px rgba(139, 0, 0, 0.2);
     }
 
     .about-text {
@@ -316,10 +336,12 @@
       opacity: 1;
     }
 
+    /* UPDATED: Larger Card Number */
     .card-number {
       font-family: 'Cinzel', serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.3em;
+      font-size: 0.9rem; /* Increased size */
+      font-weight: 600; /* Added weight */
+      letter-spacing: 0.2em;
       color: var(--accent);
       text-transform: uppercase;
       margin-bottom: 1.5rem;
@@ -701,7 +723,8 @@
 
   <!-- ═══ HERO ═══ -->
   <section class="hero">
-    <h1 class="hero-title">Retention<br>Architect</h1>
+    <h1 class="hero-title">Krishna<br>Chaitanya</h1>
+    <h2 class="hero-subtitle">Retention Architect</h2>
     <div class="hero-line"></div>
     <p class="hero-tagline">"I don't write scripts — I engineer obsession."</p>
     <div class="scroll-indicator">
