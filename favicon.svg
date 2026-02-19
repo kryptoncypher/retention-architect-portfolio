@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- The Architect's Eye: Geometric and Sharp -->
+  <path fill="#8b0000" filter="url(#glow)" d="M32 12C14 12 2 32 2 32s12 20 30 20 30-20 30-20-12-20-30-20zm0 34c-7.7 0-14-6.3-14-14s6.3-14 14-14 14 6.3 14 14-6.3 14-14 14z"/>
+  <!-- The Pupil: Focus Point -->
+  <rect x="28" y="28" width="8" height="8" transform="rotate(45 32 32)" fill="#ffffff"/>
+</svg>
