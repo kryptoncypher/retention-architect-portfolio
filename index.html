@@ -845,19 +845,25 @@
         Let's talk.
       </p>
     </div>
-    <form class="contact-form reveal" style="transition-delay: 0.2s;" onsubmit="return false;">
+    <form class="contact-form reveal" style="transition-delay: 0.2s;" action="https://formsubmit.co/chaitanya.krishna2608@gmail.com" method="POST">
       <div class="input-group">
-        <input type="text" placeholder="Your Name" required>
+        <input type="text" name="name" placeholder="Your Name" required>
         <div class="line"></div>
       </div>
       <div class="input-group">
-        <input type="email" placeholder="your@email.com" required>
+        <input type="email" name="email" placeholder="your@email.com" required>
         <div class="line"></div>
       </div>
       <div class="input-group">
-        <textarea placeholder="Tell me about your project..." required></textarea>
+        <textarea name="message" placeholder="Tell me about your project..." required></textarea>
         <div class="line"></div>
       </div>
+      
+      <!-- FormSubmit Configuration -->
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_subject" value="New Lead: Retention Architect Portfolio">
+      <input type="hidden" name="_next" value="https://kryptoncypher.github.io/retention-architect-portfolio/">
+      
       <button type="submit" class="submit-btn">Send Message</button>
     </form>
   </section>
